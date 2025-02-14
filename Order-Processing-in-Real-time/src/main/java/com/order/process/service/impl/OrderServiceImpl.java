@@ -1,6 +1,7 @@
 package com.order.process.service.impl;
 
 import com.order.process.dto.OrderDto;
+import com.order.process.dto.OrderResponse;
 import com.order.process.entity.Order;
 import com.order.process.entity.OrderStatus;
 import com.order.process.repository.OrderRepository;
@@ -36,4 +37,20 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
         return "Order placed successfully "+orderId;
     }
+
+    @Override
+    public OrderResponse findOrderDetail(Long orderId) {
+        OrderResponse order = new OrderResponse();
+        orderRepository.findById(orderId).ifPresent(order1 -> {
+            order.setItems(order1.getItems());
+            order.setLocalDateTime(order1.getLocalDateTime());
+            order.setStatus(order1.getStatus());
+            order.setTotalAmount(order.getTotalAmount());
+            order.setOrderId(order1.getOrderId());
+        });
+        return order;
+
+    }
+
+
 }
