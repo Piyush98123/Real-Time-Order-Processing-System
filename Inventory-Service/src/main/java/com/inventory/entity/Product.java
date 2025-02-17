@@ -1,9 +1,6 @@
 package com.inventory.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,10 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "inventory_product")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long pid;
     private Long productId;
     private Integer quantity;
     private String productName;
@@ -23,11 +21,11 @@ public class Product {
     private Integer available;
 
     public Long getId() {
-        return id;
+        return pid;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.pid = id;
     }
 
     public Long getProductId() {

@@ -1,4 +1,4 @@
-package com.order.entity;
+package com.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -30,9 +30,6 @@ public class Order {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime localDateTime;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> items;
 
     public Long getId() {
         return oid;
@@ -82,11 +79,4 @@ public class Order {
         this.localDateTime = localDateTime;
     }
 
-    public List<Product> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Product> items) {
-        this.items = items;
-    }
 }
