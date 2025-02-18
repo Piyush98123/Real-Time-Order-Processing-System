@@ -2,7 +2,7 @@
 server:
   servlet:
     context-path: /order
-  port: 8090
+  port: 8095
 
 spring:
   application:

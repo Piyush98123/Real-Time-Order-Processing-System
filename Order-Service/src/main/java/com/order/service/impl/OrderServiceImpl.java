@@ -19,6 +19,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 @Service
@@ -59,7 +61,20 @@ public class OrderServiceImpl implements OrderService {
         order.setItems(items);
         orderRepository.save(order);
         sendOrderInfo(order);
-        return "Order placed successfully "+orderId;
+        String msg="";
+        AtomicBoolean isOrderFailed= new AtomicBoolean(false);
+        orderRepository.findById(order.getId()).ifPresent(ord->{
+            if(ord.getStatus().equalsIgnoreCase(OrderStatus.FAILED.name())){
+                isOrderFailed.set(true);
+            }
+        });
+        if(isOrderFailed.get()){
+            msg="Product is out of stock order is failed to created";
+        }
+        else{
+            msg="Order placed successfully " +orderId;
+        }
+        return msg;
     }
 
     @Override
