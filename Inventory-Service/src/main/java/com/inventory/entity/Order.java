@@ -1,6 +1,5 @@
 package com.inventory.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -11,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -79,4 +77,15 @@ public class Order {
         this.localDateTime = localDateTime;
     }
 
+    @Override
+    public String toString() {
+        return "Order{" +
+                "oid=" + oid +
+                ", orderId=" + orderId +
+                ", userId=" + userId +
+                ", totalAmount=" + totalAmount +
+                ", status='" + status + '\'' +
+                ", localDateTime=" + localDateTime +
+                '}';
+    }
 }

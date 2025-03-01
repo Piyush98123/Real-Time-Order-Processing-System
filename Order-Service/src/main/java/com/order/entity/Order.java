@@ -16,7 +16,6 @@ import java.util.List;
 @Entity
 @Table(name = "orders")
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Order {
     @Id
@@ -30,8 +29,19 @@ public class Order {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime localDateTime;
 
+    public Order(Long id, Long orderId, String status, Double totalAmount, Long userId, LocalDateTime localDateTime) {
+        this.orderId = orderId;
+        this.status = status;
+        this.totalAmount = totalAmount;
+        this.userId = userId;
+        this.localDateTime = localDateTime;
+        this.oid=id;
+    }
+
+    public Order(){}
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JsonIgnore
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> items;
 
     public Long getId() {

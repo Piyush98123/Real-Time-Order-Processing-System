@@ -15,10 +15,20 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
     private Long productId;
-    private Integer quantity;
     private String productName;
     private String category;
     private Integer available;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pid=" + pid +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", category='" + category + '\'' +
+                ", available=" + available +
+                '}';
+    }
 
     public Long getId() {
         return pid;
@@ -34,14 +44,6 @@ public class Product {
 
     public void setProductId(Long productId) {
         this.productId = productId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getProductName() {

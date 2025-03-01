@@ -1,4 +1,4 @@
-package com.order.entity;
+package com.inventory.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -12,22 +12,27 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "order_product")
-@ToString
-public class Product {
+public class OrderProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pid;
-
     private Long productId;
     private String productName;
     private String category;
     private Integer quantity;
+    private Long orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    @JsonIgnore
-    private Order order;
+    @Override
+    public String toString() {
+        return "OrderProduct{" +
+                "pid=" + pid +
+                ", productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", category='" + category + '\'' +
+                ", quantity=" + quantity +
+                ", orderId=" + orderId +
+                '}';
+    }
 
     public Long getPid() {
         return pid;
@@ -43,14 +48,6 @@ public class Product {
 
     public void setProductId(Long productId) {
         this.productId = productId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
     }
 
     public String getProductName() {
@@ -69,11 +66,19 @@ public class Product {
         this.category = category;
     }
 
-    public Order getOrder() {
-        return order;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }
