@@ -115,6 +115,9 @@ public class ProductServiceImpl implements ProductService {
             log.info("Inventory JSON Output: " + jsonString);
             Thread.sleep(2000);
             this.kafkaTemplate.send("order-status", jsonString);
+            Thread.sleep(1000);
+            jsonString=order.getOrderId()+"" +jsonString;
+            this.kafkaTemplate.send("payment-notification",jsonString);
         } catch (Exception e) {
             e.printStackTrace();
         }
